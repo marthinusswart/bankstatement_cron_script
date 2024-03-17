@@ -30,7 +30,8 @@ def main() -> None:
         elif (args[0] == "api"):
             aws_api_url: str = args[1]
         elif (args[0] == "s3"):
-            s3_bucket = args[1]
+            s3_bucket: str = args[1]       
+    
     
     files = list_files(statement_dir)
 
