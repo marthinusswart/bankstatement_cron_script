@@ -3,13 +3,17 @@ import sys
 import os
 import requests
 import shutil
+import json
 
 def send_file_to_aws(statement_dir: str, filename: str, aws_api_url: str, s3_bucket: str):
     post_url = "{}/{}/{}".format(aws_api_url, s3_bucket, filename)
     file_path = "{}/{}".format(statement_dir, filename)
+    headers = {"Content-Type": "application/octet-stream"}
     
-    with open(file_path, "r") as f:        
-        response = requests.put(post_url, files={"file":f})
+    with open(file_path, "rb") as f:
+        binary_data = f.read()
+
+    response = requests.put(post_url, headers=headers, data=binary_data)
 
     return response
 
